@@ -1,64 +1,58 @@
-# stream-nova-Youtube-Clone-
+# 🚀 StreamNova: High-Performance Video Infrastructure
 
-**stream-nova-Youtube-Clone-** is an enterprise-grade video infrastructure platform. This project goes beyond a basic UI clone, focusing on the engineering challenges of distributed systems, high-volume video ingestion, and Adaptive Bitrate Streaming (HLS).
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js Version](https://img.shields.io/badge/Node.js-v18%2B-green.svg)](https://nodejs.org/)
+[![AWS S3](https://img.shields.io/badge/Storage-AWS%20S3-orange.svg)](https://aws.amazon.com/s3/)
+[![FFmpeg](https://img.shields.io/badge/Engine-FFmpeg-blueviolet.svg)](https://ffmpeg.org/)
+
+**StreamNova** is an enterprise-grade video infrastructure platform designed to handle the complexities of distributed video processing. This project focuses on high-volume ingestion, asynchronous transcoding, and **Adaptive Bitrate Streaming (ABR)** via the HLS protocol.
 
 ---
 
 ## 🏗 System Architecture
 
-The project is built with a decoupled microservice architecture to ensure the processing-heavy transcoding layer can scale independently of the API.
+StreamNova uses a decoupled architecture to ensure that the CPU-intensive transcoding layer scales independently of the user-facing API.
 
-1.  **Ingestion Service:** A Node.js/Express service designed to handle multipart large-file uploads securely.
-2.  **Transcoding Engine:** An asynchronous worker using **FFmpeg** to convert raw videos into HLS segments (`.m3u8`) at multiple resolutions (1080p, 720p, 480p).
-3.  **Cloud Storage:** Integrated with **AWS S3** for durable storage of raw assets and processed streaming chunks.
-4.  **Global Delivery:** Optimized for **CloudFront CDN** to ensure low-latency playback worldwide.
+1.  **Ingestion Layer:** Node.js/Express gateway optimized for multipart large-file uploads.
+2.  **Transcoding Engine:** An asynchronous worker using **FFmpeg** to segment raw files into HLS manifests (`.m3u8`) and fragments (`.ts`).
+3.  **Multi-Resolution Processing:** Concurrently generates 1080p, 720p, and 480p streams to support varying network conditions.
+4.  **Global Distribution:** Assets are persisted to **AWS S3** and served through **CloudFront CDN** for low-latency playback.
 
-## 🚀 Engineering Highlights
-
-* **Adaptive Bitrate Streaming (HLS):** Automatically adjusts video quality based on the user's network speed.
-* **Asynchronous Task Processing:** Offloads heavy video transcoding to background workers to keep the main API responsive.
-* **Scalable Storage:** Utilizes signed URLs for secure, direct-to-cloud asset management.
-* **Clean Architecture:** Strict separation of concerns between business logic, controllers, and infrastructure.
+---
 
 ## 🛠 Tech Stack
 
 | Layer | Technology |
 | :--- | :--- |
 | **Backend** | Node.js, Express.js |
-| **Processing** | FFmpeg, Fluent-FFmpeg |
+| **Media Processing** | FFmpeg, Fluent-FFmpeg |
 | **Database** | MongoDB (Mongoose) |
-| **Storage** | AWS S3 |
+| **Cloud Storage** | AWS S3 |
+| **Content Delivery** | AWS CloudFront |
 | **DevOps** | Docker, GitHub Actions |
 
-## 📦 Getting Started
+---
 
-### Prerequisites
-* Node.js (v18+)
-* FFmpeg (installed on your system)
-* MongoDB instance
+## 🌟 Engineering Highlights
 
-### Installation
-1.  **Clone the repository:**
-    ```bash
-    git clone [https://github.com/tirth707/stream-nova-Youtube-Clone-.git](https://github.com/tirth707/stream-nova-Youtube-Clone-.git)
-    cd stream-nova-Youtube-Clone-
-    ```
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
-3.  **Setup Environment:**
-    Create a `.env` file with your `PORT`, `AWS_ACCESS_KEY`, and `MONGODB_URI`.
-4.  **Run:**
-    ```bash
-    npm run dev
-    ```
-
-## 🗺 Roadmap
-- [ ] Implement Redis-based Task Queue (BullMQ) for processing reliability.
-- [ ] Integrate JWT-based Authentication & Role-Based Access Control (RBAC).
-- [ ] Build a React-based frontend using HLS.js for seamless playback.
-- [ ] Deploy via Kubernetes for auto-scaling transcoding workers.
+* **Adaptive Bitrate Streaming (HLS):** Implemented dynamic quality switching to ensure a buffer-free user experience.
+* **Asynchronous Processing:** Offloaded heavy encoding tasks from the main event loop to maintain high API responsiveness.
+* **Secure Asset Management:** Utilized **AWS Signed URLs** for temporary, secure access to private streaming data.
+* **Clean Architecture:** Strict separation of concerns between business logic, media services, and infrastructure providers.
 
 ---
-*Developed by **Tirth Patel** — B.Tech IT Student at **Parul University**.*
+
+## 📁 Project Structure
+
+```text
+stream-nova/
+├── src/
+│   ├── controllers/    # Request handling
+│   ├── models/         # Database schemas
+│   ├── routes/         # API endpoints
+│   ├── services/       # FFmpeg & S3 logic
+│   ├── utils/          # Helpers
+│   └── app.js          # Entry point
+├── uploads/            # Temporary buffer
+├── docker-compose.yml
+└── package.json
