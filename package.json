@@ -1,14 +1,26 @@
 {
   "name": "streamnova-backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Enterprise-grade video infrastructure platform supporting high-volume ingestion, asynchronous FFmpeg transcoding, and Adaptive Bitrate Streaming (HLS) via AWS S3 and CloudFront.",
+  "main": "uploadService.js",
   "scripts": {
+    "start": "node uploadService.js",
+    "dev": "nodemon uploadService.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "video-streaming",
+    "hls",
+    "adaptive-bitrate",
+    "ffmpeg",
+    "aws-s3",
+    "cloudfront",
+    "transcoding",
+    "nodejs",
+    "express"
+  ],
+  "author": "Tirth Patel",
+  "license": "MIT",
   "dependencies": {
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
